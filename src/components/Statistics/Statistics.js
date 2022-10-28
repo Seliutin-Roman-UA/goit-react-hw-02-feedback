@@ -1,14 +1,24 @@
+import { Text } from './Statistics.styled';
+import PropTypes from 'prop-types';
+
 export function Statistics({ statsList, total, positivePercentage }) {
   return (
-    <div className="statistic">
+    <>
       {statsList.map(([key, value]) => (
-        <p key={key}>
+        <Text key={key}>
           {key}: {value}
-        </p>
+        </Text>
       ))}
 
-      <p>total: {total}</p>
-      <p>Positive feedback: {positivePercentage}%</p>
-    </div>
+      <Text>total: {total}</Text>
+      <Text>Positive feedback: {positivePercentage}%</Text>
+    </>
   );
 }
+
+
+Statistics.propTypes = {
+  statsList: PropTypes.arrayOf(PropTypes.array).isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
+};

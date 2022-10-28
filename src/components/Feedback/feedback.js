@@ -1,9 +1,12 @@
 import { Component } from 'react';
 import { Statistics } from 'components/Statistics/Statistics';
 import { Notification } from 'components/Notification/Notification';
+import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
+
+import { FeedbackForm, Caption } from './feedback.styled';
+
 
 export class Feedback extends Component {
-
   state = {
     good: 0,
     neutral: 0,
@@ -12,7 +15,7 @@ export class Feedback extends Component {
 
   pressButton = evt => {
     const nameButton = evt.target.textContent.toLowerCase();
-   
+
     this.setState(state => ({ [nameButton]: state[nameButton] + 1 }));
   };
 
@@ -31,33 +34,31 @@ export class Feedback extends Component {
   };
   render() {
     const statsList = Object.entries(this.state);
-    
+    const total = this.countTotalFeedback();
+
     return (
-      <div className="feedback">
-        <p className="qwe">Please leave fedback</p>
-        {statsList.map(([key]) => {
-          
-          return (
-            <button
-              key={key}
-              className="btn"
-              type="button"
-              onClick={this.pressButton}
-            >
-              {key}
-            </button>
-          );
-        })}
-        {this.countTotalFeedback() === 0 ? (
+      <FeedbackForm>
+        <section className="options">
+          <Caption>Please leave fedback</Caption>
+          <FeedbackOptions
+            options={statsList}
+            onLeaveFeedback={this.pressButton}
+          />
+        </section>
+
+        {total === 0 ? (
           <Notification message="There is no feedback" />
         ) : (
-          <Statistics
-            statsList={statsList}
-            total={this.countTotalFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          />
+          <section className="stats">
+            <Caption>Statistics</Caption>
+            <Statistics
+              statsList={statsList}
+              total={total}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          </section>
         )}
-      </div>
+      </FeedbackForm>
     );
   }
 }
