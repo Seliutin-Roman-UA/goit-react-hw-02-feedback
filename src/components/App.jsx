@@ -3,7 +3,7 @@ import { Statistics } from 'components/Statistics/Statistics';
 import { Notification } from 'components/Notification/Notification';
 import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 
-import { FeedbackForm, Caption } from './App.styled';
+import { FeedbackForm } from './App.styled';
 import { Section } from './Section/Section';
 
 export class App extends Component {
